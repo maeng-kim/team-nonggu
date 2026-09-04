@@ -1,0 +1,6 @@
+{
+  "name": "team-nonggu",
+  "private": true,
+  "type": "module",
+  "description": "KBL 2026-2027 schedule calendar (static site, no build step)"
+}
