@@ -16,3 +16,17 @@ export const TEAMS = {
 export function shortTeamName(fullName) {
   return fullName.split(' ').slice(1).join(' ') || fullName;
 }
+
+// Brand colors from the design (Figma node 2217:801) — keyed by the same team code as TEAMS.
+export const TEAM_COLORS = {
+  '06': '#000000',
+  '10': '#DA291C',
+  '16': '#00742F',
+  '35': '#1A259B',
+  '50': '#5F3C42',
+  '55': '#EA002C',
+  '60': '#006EB8',
+  '64': '#3D4498',
+  '66': '#72A3CD',
+  '70': '#D70029',
+};

@@ -1,6 +1,5 @@
 import { TEAMS } from '../../entities/schedule/teams.js';
 
-// Renders the team <select> and reports the chosen team code ('all' | tcode).
 export function mountTeamFilter(selectEl, onChange) {
   const allOpt = document.createElement('option');
   allOpt.value = 'all';

@@ -1,50 +1,39 @@
 import { fetchSeasonSchedule } from '../entities/schedule/kbl-api.js';
 import { filterByTeam } from '../entities/schedule/schedule-model.js';
 import { mountTeamFilter } from '../features/team-filter/team-filter.js';
-import { mountViewToggle } from '../features/view-toggle/view-toggle.js';
 import { mountMonthNavigation } from '../features/month-navigation/month-navigation.js';
 import { renderCalendarView } from '../widgets/calendar-view/calendar-view.js';
-import { renderScheduleList } from '../widgets/schedule-list/schedule-list.js';
+import { mountGamePopup } from '../widgets/game-popup/game-popup.js';
 
 const el = {
   status: document.getElementById('status'),
-  calTable: document.getElementById('calendar'),
+  calCard: document.getElementById('calendarCard'),
   calBody: document.getElementById('calBody'),
   monthLabel: document.getElementById('monthLabel'),
-  calNav: document.getElementById('calNav'),
-  list: document.getElementById('list'),
   teamSelect: document.getElementById('teamSelect'),
-  viewToggle: document.getElementById('viewToggle'),
   prevMonth: document.getElementById('prevMonth'),
   nextMonth: document.getElementById('nextMonth'),
+  popupOverlay: document.getElementById('gamePopup'),
 };
 
-const state = { games: [], team: 'all', view: 'calendar' };
+const state = { games: [], team: 'all' };
+const popup = mountGamePopup(el.popupOverlay);
 
 function render() {
   const filtered = filterByTeam(state.games, state.team);
-  const showCalendar = state.view === 'calendar';
-
-  el.calNav.hidden = !showCalendar;
-  el.calTable.hidden = !showCalendar;
-  el.list.hidden = showCalendar;
-
-  if (showCalendar) {
-    renderCalendarView({ bodyEl: el.calBody, labelEl: el.monthLabel }, filtered, monthNav.getCursor());
-  } else {
-    renderScheduleList(el.list, filtered);
-  }
+  renderCalendarView({ bodyEl: el.calBody, labelEl: el.monthLabel }, filtered, monthNav.getCursor(), {
+    onDayClick: (dateKey, dayGames) => popup.open(dateKey, dayGames),
+  });
 }
 
 mountTeamFilter(el.teamSelect, (team) => { state.team = team; render(); });
-mountViewToggle(el.viewToggle, (view) => { state.view = view; render(); });
 const monthNav = mountMonthNavigation(el.prevMonth, el.nextMonth, () => render());
 
 fetchSeasonSchedule()
   .then((games) => {
     state.games = games;
     el.status.hidden = true;
-    el.calTable.hidden = false;
+    el.calCard.hidden = false;
     render();
   })
   .catch((err) => {

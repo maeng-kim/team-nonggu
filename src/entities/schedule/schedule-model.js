@@ -1,6 +1,3 @@
-// Pure domain operations on a game list — no DOM, no fetch. Widgets/features
-// call these instead of re-deriving filtering/sorting/grouping logic themselves.
-
 export function filterByTeam(games, teamCode) {
   if (teamCode === 'all') return games;
   return games.filter((g) => g.tcodeH === teamCode || g.tcodeA === teamCode);

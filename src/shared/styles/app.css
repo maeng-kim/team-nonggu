@@ -1,29 +1,69 @@
 :root{
-  --bg:#0f1420; --panel:#171d2b; --line:#2a3244; --text:#e8ecf4; --sub:#8a93a8;
-  --accent:#ff7a1a; --today:#2a3f5f;
+  --bg:#f5f6f8; --card:#ffffff; --line:#e8e8e8; --text:#252525; --sub:#969696;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,"Segoe UI",Roboto,"Malgun Gothic",sans-serif}
-header{position:sticky;top:0;background:var(--panel);border-bottom:1px solid var(--line);padding:12px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;z-index:5}
-h1{font-size:16px;margin:0;margin-right:auto}
-select,button{background:#20283a;color:var(--text);border:1px solid var(--line);border-radius:6px;padding:7px 10px;font-size:14px;cursor:pointer}
-button:hover,select:hover{border-color:var(--accent)}
-.nav{display:flex;gap:6px;align-items:center}
-.nav span{min-width:110px;text-align:center;font-weight:600}
-main{max-width:1000px;margin:0 auto;padding:16px}
-#status{color:var(--sub);padding:20px;text-align:center}
-table{width:100%;border-collapse:collapse;table-layout:fixed}
-th{padding:6px 0;color:var(--sub);font-weight:500;font-size:13px}
-th.sun{color:#ff6b6b}
-th.sat{color:#6ba6ff}
-td{border:1px solid var(--line);vertical-align:top;height:100px;padding:4px;font-size:12px}
-td.othermonth{opacity:.35}
-td.today{background:var(--today)}
-.daynum{font-weight:600;margin-bottom:3px}
-.game{background:#20283a;border-radius:4px;padding:2px 4px;margin-bottom:2px;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.game b{color:var(--accent)}
-ul#list{list-style:none;padding:0;margin:0}
-ul#list li{border-bottom:1px solid var(--line);padding:10px 4px;display:flex;gap:14px;align-items:center;font-size:14px}
-ul#list .d{color:var(--sub);width:110px;flex:none}
-ul#list .cat{color:var(--sub);font-size:12px;width:70px;flex:none}
+.page{max-width:1400px;margin:0 auto;padding:24px 16px 60px}
+
+.cal-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;padding:12px 4px 24px}
+.nav{display:flex;align-items:center;gap:8px}
+.icon-btn{background:#fff;border:1px solid var(--line);border-radius:6px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--text);cursor:pointer;line-height:1}
+.icon-btn:hover{border-color:#b7b7b7}
+.month-label{font-size:24px;display:flex;gap:8px;align-items:baseline;min-width:140px;justify-content:center}
+.month-label .month-num{font-weight:800}
+.month-label .month-year{font-weight:300;color:var(--sub)}
+
+.select-wrap select{appearance:none;-webkit-appearance:none;background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23252525" d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;background-size:16px;border:1px solid var(--line);border-radius:6px;padding:8px 34px 8px 14px;font-size:15px;color:var(--text);cursor:pointer}
+.select-wrap select:hover{border-color:#b7b7b7}
+
+#status{color:var(--sub);padding:60px 20px;text-align:center;font-size:15px}
+
+.calendar-card{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.cal-weekdays{display:grid;grid-template-columns:repeat(7,1fr);background:#fafafa;border-bottom:1px solid var(--line)}
+.cal-weekdays span{padding:12px;font-size:13px;font-weight:500;color:var(--sub);text-align:left}
+.cal-body{display:grid;grid-template-columns:repeat(7,1fr);grid-auto-rows:170px}
+.cal-cell{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.cal-cell:nth-child(7n){border-right:none}
+.cal-cell.othermonth{background:#f8f8f8}
+.cal-cell.othermonth .daynum{opacity:.4}
+.cal-cell.today{background:#eef5ff}
+.cal-cell.has-games{cursor:pointer}
+.cal-cell.has-games:hover{background:#fafcff}
+.daynum{font-size:18px;font-weight:500;flex:none}
+.chips{display:flex;flex-direction:column;gap:6px;flex:1;min-height:0;min-width:0;overflow-y:auto}
+.chip{font-size:12px;padding:3px 6px;border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text);min-width:0;flex:none}
+.chip b{font-weight:600}
+
+.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50}
+.popup-panel{background:#fff;border-radius:12px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto;padding:20px;box-shadow:0 8px 30px rgba(0,0,0,.2)}
+.popup-panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.popup-title{font-size:18px;margin:0}
+.popup-close{background:none;border:none;font-size:18px;cursor:pointer;color:var(--sub)}
+.popup-close:hover{color:var(--text)}
+.popup-card{border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px}
+.popup-card:last-child{margin-bottom:0}
+.popup-matchup{font-size:14px;font-weight:600;padding:6px 10px;border-radius:6px;margin-bottom:10px}
+.popup-location{font-size:14px;margin-bottom:8px}
+.popup-links{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;font-size:13px}
+.popup-links a,.popup-ticket{color:#0085ff;text-decoration:none}
+.popup-links a:hover,.popup-ticket:hover{text-decoration:underline}
+.popup-ticket{display:inline-block;font-size:13px;font-weight:600;color:#0085ff}
+.link-disabled{color:#c7c7c7;cursor:default;font-size:13px}
+
+@media (max-width:768px){
+  .page{padding:16px 10px 40px}
+  .cal-header{padding:6px 2px 16px;gap:10px}
+  .month-label{font-size:19px;min-width:auto}
+  .calendar-card{border-radius:16px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+  .cal-weekdays span{padding:8px 2px;font-size:11px;text-align:center}
+  .cal-body{grid-auto-rows:64px}
+  .cal-cell{padding:4px;gap:3px;border-right-color:transparent}
+  .daynum{font-size:12px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+  .cal-cell.today{background:transparent}
+  .cal-cell.today .daynum{background:#252525;color:#fff}
+  .chip{font-size:8px;padding:1px 3px;border-radius:3px}
+  .popup-panel{padding:16px;border-radius:16px 16px 0 0;max-width:100%;align-self:flex-end}
+  .popup-overlay{align-items:flex-end;padding:0}
+}
+
 [hidden]{display:none!important}

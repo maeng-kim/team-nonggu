@@ -1,4 +1,3 @@
-// Owns the "which month is the calendar showing" cursor and its prev/next buttons.
 export function mountMonthNavigation(prevBtn, nextBtn, onChange) {
   const cursor = new Date();
   cursor.setDate(1);

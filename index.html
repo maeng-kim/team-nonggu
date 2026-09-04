@@ -7,26 +7,38 @@
 <link rel="stylesheet" href="./src/shared/styles/app.css">
 </head>
 <body>
-<header>
-  <h1>KBL 2026-2027 경기 일정</h1>
-  <select id="teamSelect"></select>
-  <button id="viewToggle">리스트 보기</button>
-  <div class="nav" id="calNav">
-    <button id="prevMonth">◀</button>
-    <span id="monthLabel"></span>
-    <button id="nextMonth">▶</button>
+<div class="page">
+  <header class="cal-header">
+    <div class="nav" id="calNav">
+      <button id="prevMonth" class="icon-btn" aria-label="이전 달">‹</button>
+      <span id="monthLabel" class="month-label"></span>
+      <button id="nextMonth" class="icon-btn" aria-label="다음 달">›</button>
+    </div>
+    <div class="select-wrap">
+      <select id="teamSelect"></select>
+    </div>
+  </header>
+  <main>
+    <div id="status">일정을 불러오는 중...</div>
+    <div id="calendarCard" class="calendar-card" hidden>
+      <div class="cal-weekdays">
+        <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span>
+      </div>
+      <div id="calBody" class="cal-body"></div>
+    </div>
+  </main>
+</div>
+
+<div id="gamePopup" class="popup-overlay" hidden>
+  <div class="popup-panel" role="dialog" aria-modal="true">
+    <div class="popup-panel-head">
+      <h2 class="popup-title"></h2>
+      <button class="popup-close" aria-label="닫기">✕</button>
+    </div>
+    <div class="popup-body"></div>
   </div>
-</header>
-<main>
-  <div id="status">일정을 불러오는 중...</div>
-  <table id="calendar" hidden>
-    <thead><tr>
-      <th class="sun">일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th class="sat">토</th>
-    </tr></thead>
-    <tbody id="calBody"></tbody>
-  </table>
-  <ul id="list" hidden></ul>
-</main>
+</div>
+
 <script type="module" src="./src/app/main.js"></script>
 </body>
 </html>
